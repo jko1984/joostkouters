@@ -6,13 +6,26 @@ No build step, no framework, no dependencies.
 ## Structure
 
 ```
-index.html            Main hub: profile, projects, coaching promo
-coaching/index.html   Coaching landing page (NL)
+index.html            Main hub: profile, projects, coaching promo (EN default, NL toggle)
+coaching/index.html   Coaching landing page (EN default, NL toggle)
 style.css             Shared design system
 reveal.js             Scroll-reveal (external so CSP stays strict)
+switch.js             Language toggle — swaps data-en/data-nl text, remembers choice
 _headers              Security headers (Cloudflare Pages / Netlify)
 vercel.json           Security headers (Vercel) — keep only the one you need
 ```
+
+## Language toggle
+
+Both pages default to English. A flag switcher in the nav (🇬🇧 / 🇳🇱) swaps
+visible text via `switch.js`, reading `data-en` / `data-nl` attributes on
+each element, and remembers the choice in `localStorage` across pages.
+
+To edit copy: change both the visible text inside the tag *and* the matching
+`data-en="..."` / `data-nl="..."` attribute (or `data-en-html` /
+`data-nl-html` for text containing tags like `<em>` or `<strong>`) — the
+attribute is what actually gets shown; the inline text is just the
+no-JS fallback.
 
 ## Deploy
 
@@ -47,8 +60,7 @@ Either way: every `git push` to main auto-deploys.
 
 ## Before going live
 
-- [ ] Replace `hello@joostkouters.com` if using a different address
-      (set up the mailbox or a forward at your domain/DNS provider)
+- [x] Mailbox set up: info@joostkouters.com
 - [ ] Replace `KvK [nummer]` in both footers
 - [ ] Add the real LinkedIn URL in both footers
 - [ ] Swap the intake mailto for a booking link (Cal.com is free) once ready
